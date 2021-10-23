@@ -2,15 +2,20 @@ import React from "react";
 import Filter from "./Filter";
 import Navbar from "./Navbar";
 
+import Search from "./Search";
+import Table from "./Table";
+
 
 // eslint-disable-next-line 
 class App extends React.Component{
   state={
     movie:[],
     genre:[],
+    selectedgenre:"All Genere",
   }
-
-
+  setFilter=(filter)=>{
+    this.setState({selectedgenre:filter})
+  }
 
   componentDidMount(){
     let f=async ()=>{
@@ -31,8 +36,20 @@ class App extends React.Component{
     <div>
       <Navbar/>
       <div className="row">
-        <Filter genreData={this.state.genre}/>
+        <Filter 
+        handleFilter={this.setFilter}
+        genreData={this.state.genre}
+        selectedFilter={this.state.selectedgenre}
+        />
+
+
+        <div class="col-9 p-4">
+          <Search/>
+          <Table  selectedFilter={this.state.selectedgenre} movieData={this.state.movie}/>
+          
+        </div>
       </div>
+      
     </div>
     )}
   

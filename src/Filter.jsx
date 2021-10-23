@@ -1,13 +1,17 @@
-let Filter =(props)=>{
-    console.log("this from filter");
-    console.log(props.genreData);
+import React from 'react';
+let Filter =(props)=> {
     return(
         <div class="col-3">
             <ul class="list-group m-3">
-                <li class="list-group-item">All genres</li>
+                <li onClick={(e)=>{
+                    props.handleFilter("All Genre");
+                }} 
+                class={`list-group-item ${props.selectedFilter=="All Genre"? "active" :""}`}>All genres</li>
                 {
                     props.genreData.map((el)=>{
-                        return <li key={el.id} class="list-group-item">{el.name}</li>
+                        return <li onClick={()=>{
+                            props.handleFilter(el.name)
+                        }} key={el._id} class={`list-group-item ${props.selectedFilter==el.name?"active":""}`}>{el.name}</li>
                     })
                 }
                 
@@ -15,5 +19,6 @@ let Filter =(props)=>{
         </div>
     );
 }
+
 
 export default Filter;
